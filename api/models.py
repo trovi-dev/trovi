@@ -41,6 +41,7 @@ class Location(TimeStampedModel):
     country_name = models.CharField(max_length=50)
     locality = models.CharField(max_length=100)
     postal_code = models.CharField(max_length=10)
+    user = models.ForeignKey(User)
 
 
 """class NormalizedLocation(TimeStampedModel):

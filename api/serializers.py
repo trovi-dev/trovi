@@ -6,10 +6,10 @@ from .models import User, Location
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ('phone', 'url', 'first_name', 'age', 'profile_picture')
+        fields = ('url', 'first_name', 'age', 'profile_picture')
 
 
 class LocationSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Location
-        fields = ('latitude', 'longitude', 'country_name', 'locality', 'postal_code')
+        fields = ('url', 'latitude', 'longitude', 'country_name', 'locality', 'postal_code')
