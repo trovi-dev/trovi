@@ -36,6 +36,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework_swagger',
+    'rest_framework.authtoken',
     'api',
 )
 
@@ -53,6 +56,15 @@ ROOT_URLCONF = 'trovi.urls'
 
 WSGI_APPLICATION = 'trovi.wsgi.application'
 
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+    ),
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
+    'PAGINATE_BY': 100,
+    'PAGINATE_BY_PARAM': 'page_size',
+}
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
@@ -88,5 +100,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.environ['STATIC_ROOT']
 
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.environ['MEDIA_ROOT']
