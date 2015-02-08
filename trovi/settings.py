@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'rest_framework_swagger',
     'rest_framework.authtoken',
+    'django.contrib.gis',
     'api',
 )
 
@@ -71,7 +72,8 @@ REST_FRAMEWORK = {
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        #'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': os.environ['DB_NAME'],
         'USER': os.environ['DB_USER'],
         'PASSWORD': os.environ['DB_PASSWORD'],

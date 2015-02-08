@@ -1,4 +1,4 @@
-from django.db import models
+from django.contrib.gis.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.conf import settings
 from django.db.models.signals import post_save
@@ -36,18 +36,20 @@ class Location(TimeStampedModel):
     """
     Raw Location representation from the mobile client.
     """
-    latitude = models.FloatField()
-    longitude = models.FloatField()
+    address = models.CharField(max_length=255)
     country_name = models.CharField(max_length=50)
     locality = models.CharField(max_length=100)
     postal_code = models.CharField(max_length=10)
+    point = models.PointField()
     user = models.ForeignKey(User)
 
 
-"""class NormalizedLocation(TimeStampedModel):
-    # address: street, primary number, etc
-    pass
-
-
 class Venue(models.Model):
-    pass"""
+    unique_identifier = models.CharField(max_length=255, unique=True)
+    name = models.CharField(max_length=500)
+    url = models.URLField()
+    point = models.PointField()
+
+
+class NormalizedLocation(Location):
+    venue = models.ForeignKey(Venue)

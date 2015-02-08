@@ -3,6 +3,8 @@ from rest_framework.authentication import SessionAuthentication, TokenAuthentica
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import mixins
 from rest_framework_extensions.mixins import PaginateByMaxMixin
+from rest_framework.filters import DjangoFilterBackend
+from rest_framework_gis.filters import DistanceToPointFilter
 
 from django.shortcuts import redirect
 
@@ -41,8 +43,10 @@ class LocationViewSet(mixins.CreateModelMixin,
 
     queryset = Location.objects.all()
     serializer_class = LocationSerializer
+    distance_filter_field = 'geometry'
+    filter_backends = (DistanceToPointFilter, DjangoFilterBackend)
     max_paginate_by = 100
-    filter_fields = ('latitude', 'longitude', 'locality', 'postal_code', 'country_name')
+    filter_fields = ('geometry', 'locality', 'postal_code', 'country_name')
 
 
 def index(request):
