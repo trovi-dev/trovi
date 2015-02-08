@@ -20,18 +20,6 @@ class TimeStampedModel(models.Model):
         abstract = True
 
 
-class User(TimeStampedModel, AbstractBaseUser):
-    phone = models.CharField(max_length=15, primary_key=True)
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    age = models.IntegerField()
-    profile_picture = models.ImageField(upload_to='profile_pics')
-    USERNAME_FIELD = 'phone'
-
-    def __str__(self):
-        return self.phone
-
-
 class Location(TimeStampedModel):
     """
     Raw Location representation from the mobile client.
@@ -41,7 +29,23 @@ class Location(TimeStampedModel):
     locality = models.CharField(max_length=100)
     postal_code = models.CharField(max_length=10)
     point = models.PointField()
-    user = models.ForeignKey(User)
+
+    def __str__(self):
+        return '{}'.format(self.point)
+
+
+class User(TimeStampedModel, AbstractBaseUser):
+    phone = models.CharField(max_length=15, primary_key=True)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    age = models.IntegerField()
+    profile_picture = models.ImageField(upload_to='profile_pics')
+    is_publishing = models.BooleanField(default=False)
+    current_location = models.OneToOneField(Location, null=True, blank=True)
+    USERNAME_FIELD = 'phone'
+
+    def __str__(self):
+        return self.phone
 
 
 class Venue(models.Model):
